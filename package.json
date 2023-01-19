@@ -1,0 +1,11 @@
+{
+  "name": "athena-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/gustavohenriquess/athena-bot.git",
+  "author": "Gustavo Henrique <gustavo._henrique@hotmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "docsify-cli": "^4.4.4"
+  }
+}
