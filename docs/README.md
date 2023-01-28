@@ -1,7 +1,7 @@
 # Athena Bot
 
 > Athena bot é um chat bot para discord, que utiliza o chatGPT (GPT-3) para tirar dúvidas dos membros do discord.
-> Nossa [documentação online](https://gustavohenriquess.github.io/athena-bot/) > <br>
+> Nossa [documentação online](https://gustavohenriquess.github.io/athena-bot/) <br>
 
 ## Links Úteis
 
