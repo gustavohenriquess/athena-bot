@@ -7,14 +7,15 @@
   "author": "Gustavo Henrique <gustavo._henrique@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "run:dev": "NODE_ENV=development node --watch src/server.js",
-    "run:prd": "NODE_ENV=production node --watch src/server.js"
+    "run:dev": "NODE_ENV=development node --watch -r dotenv-flow/config src/server.js",
+    "run:prd": "NODE_ENV=production node --watch -r dotenv-flow/config src/server.js"
   },
   "devDependencies": {
     "docsify-cli": "^4.4.4"
   },
   "dependencies": {
     "discord.js": "^14.7.1",
-    "dotenv-flow": "^3.2.0"
+    "dotenv-flow": "^3.2.0",
+    "openai": "^3.1.0"
   }
 }
