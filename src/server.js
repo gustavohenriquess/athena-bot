@@ -26,6 +26,7 @@ client.on(Events.ClientReady, async () => {
 
 client.on(Events.MessageCreate, async (message) => {
   const { bot, username, discriminator } = message.author;
+  const authorId = message.author.id;
   const channelId = message.channelId.toString();
   let thread;
 
@@ -42,9 +43,10 @@ client.on(Events.MessageCreate, async (message) => {
       name: `${message.content.slice(0, 100)}`,
       autoArchiveDuration: 60,
       reason: "Needed a separate thread for food",
-      // type: ChannelType.PrivateThread,
+      type: ChannelType.PrivateThread,
     });
 
+    thread.members.add(authorId);
     await thread.send(`Pergunta Realizada: **${message.content}**`);
   }
 
