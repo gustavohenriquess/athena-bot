@@ -1,7 +1,7 @@
 # Roadmap
 
-- [ ] criar documentação
-- [ ] Iniciar Projeto com discordJS
-- [ ] Conectar com chatGPT
+- [x] criar documentação
+- [x] Iniciar Projeto com discordJS
+- [x] Conectar com chatGPT
 - [ ] Refatoração - Usar Typescript
 - [ ] Refatoração - Aplicar DDD
