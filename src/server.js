@@ -1,5 +1,8 @@
 import { Client, Events, GatewayIntentBits, ChannelType } from "discord.js";
+import { CronJob } from "cron";
 import makeQuestion from "./gpt.js";
+
+let botChannelId;
 
 const client = new Client({
   intents: [
@@ -10,8 +13,15 @@ const client = new Client({
   ],
 });
 
-client.on(Events.ClientReady, () => {
+client.on(Events.ClientReady, async () => {
   console.log(`Logged in as ${client.user.tag}!`);
+
+  const channel = client.channels.cache.find(
+    (x) => x.name === process.env.botChannelName
+  );
+  botChannelId = channel.id;
+  if (!channel) return console.error("Canal não encontrado.");
+  executeCron(channel);
 });
 
 client.on(Events.MessageCreate, async (message) => {
@@ -22,9 +32,8 @@ client.on(Events.MessageCreate, async (message) => {
   if (bot) return; // Ignore bot messages
 
   if (
-    (!message.channel.isThread() && channelId !== "1005196374725361775") ||
-    (message.channel.isThread() &&
-      message.channel.parent.id !== "1005196374725361775")
+    (!message.channel.isThread() && channelId !== botChannelId) ||
+    (message.channel.isThread() && message.channel.parent.id !== botChannelId)
   )
     return; // Ignore messages from other channels
 
@@ -36,8 +45,7 @@ client.on(Events.MessageCreate, async (message) => {
       // type: ChannelType.PrivateThread,
     });
 
-    await thread.send(`Pergunta Realizada: ${message.content}`);
-    message.channel.send("Thread Aberta!");
+    await thread.send(`Pergunta Realizada: **${message.content}**`);
   }
 
   await threadResponse(message.content, thread || message.channel);
@@ -46,7 +54,8 @@ client.on(Events.MessageCreate, async (message) => {
 client.login(process.env.token);
 
 async function threadResponse(question, thread) {
-  const answer = await chatGPT(question);
+  let answer = await chatGPT(question);
+  answer = "**Resposta**: " + answer;
   const splittedAnswer = splitText(answer, 2000);
 
   for (var i in splittedAnswer) {
@@ -69,4 +78,21 @@ function splitText(text, maxLength) {
   let remainingText = text.substring(lastSpace + 1);
 
   return [splittedText, ...splitText(remainingText, maxLength)];
+}
+
+function executeCron(channel) {
+  new CronJob(
+    "0 */2 * * *",
+    function () {
+      channel.threads.cache.forEach((element) => {
+        const data = new Date(element._createdTimestamp);
+        data.setHours(data.getHours() + 6);
+
+        if (data < new Date()) element.delete();
+      });
+    },
+    null,
+    true,
+    "America/Sao_Paulo"
+  );
 }
