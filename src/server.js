@@ -25,7 +25,7 @@ client.on(Events.ClientReady, async () => {
 });
 
 client.on(Events.MessageCreate, async (message) => {
-  const { bot, username, discriminator } = message.author;
+  const { bot } = message.author;
   const authorId = message.author.id;
   const channelId = message.channelId.toString();
   let thread;
@@ -49,6 +49,8 @@ client.on(Events.MessageCreate, async (message) => {
     thread.members.add(authorId);
     await thread.send(`Pergunta Realizada: **${message.content}**`);
   }
+
+  await message.delete();
 
   await threadResponse(message.content, thread || message.channel);
 });
