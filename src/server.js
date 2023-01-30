@@ -48,9 +48,8 @@ client.on(Events.MessageCreate, async (message) => {
 
     thread.members.add(authorId);
     await thread.send(`Pergunta Realizada: **${message.content}**`);
+    await message.delete();
   }
-
-  await message.delete();
 
   await threadResponse(message.content, thread || message.channel);
 });
