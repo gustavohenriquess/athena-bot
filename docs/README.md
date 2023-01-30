@@ -10,6 +10,10 @@
 - [discord App Panel](https://discord.com/developers/applications)
 - [Openai](https://beta.openai.com/docs/libraries/node-js-library)
 
+## Permissões do Discord
+
+![permissão do discord](./images/permissoes.png)
+
 ## Dependências
 
 ![](https://img.shields.io/badge/discordJS-%5E14.7.1-brightgreen)<br>
