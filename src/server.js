@@ -19,8 +19,8 @@ client.on(Events.ClientReady, async () => {
   const channel = client.channels.cache.find(
     (x) => x.name === process.env.botChannelName
   );
-  botChannelId = channel.id;
   if (!channel) return console.error("Canal não encontrado.");
+  botChannelId = channel.id;
   executeCron(channel);
 });
 
